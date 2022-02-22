@@ -35,8 +35,7 @@ const App = {
     const { createStar } = this.meta.methods;
     const name = document.getElementById("starName").value;
     const id = document.getElementById("starId").value;
-    const symbol = document.getElementById("starSymbol").value;
-    await createStar(name, symbol, id).send({from: this.account});
+    await createStar(name, id).send({from: this.account});
     App.setStatus("New Star Owner is " + this.account + ".");
   },
 
@@ -45,7 +44,7 @@ const App = {
     const { lookUptokenIdToStarInfo } = this.meta.methods;
     const id = document.getElementById("lookid").value;
     var star = await lookUptokenIdToStarInfo(id).call();
-    App.setStatus("star info is name:" + star.name + " symbol:" + star.symbol + ".");
+    App.setStatus("star info is name:" + star + ".");
   }
 
 };
