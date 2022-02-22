@@ -4,6 +4,16 @@
 ### ToDo
 This Starter Code has already implemented the functionalities you implemented in the StarNotary (Version 2) exercise, and have comments in all the files you need to implement your tasks.
 
+Specify the Truffle version and OpenZeppelin version used in the project.
+- Truffle v5.4.22, OpenZepplin 2.3.0,
+Your ERC-721 Tokens Name
+Your ERC-721 Token Symbol
+- [0] name: Keil Star, symbol: KS
+- [1] name: Keil Star Second, symbol: KSS
+Your “Token Address” on the Rinkeby Network
+- contract: 0x7E9A28Db466AEd6De26fAa38B302c9503817228e
+- token: https://rinkeby.etherscan.io/token/0x7e9a28db466aed6de26faa38b302c9503817228e?a=0x877c0b4ff9ff49ecb69254b1c617a2d4d70d9211
+
 
 
 ### Dependencies

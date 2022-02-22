@@ -11,7 +11,7 @@ contract StarNotary is ERC721 {
         string name;
         string symbol;
     }
-
+    
     // Implement Task 1 Add a name and symbol properties
     // name: Is a short name to your token
     // symbol: Is a short string like 'USD' -> 'American Dollar'
@@ -28,6 +28,7 @@ contract StarNotary is ERC721 {
         Star memory newStar = Star(_name, _symbol); // Star is an struct so we are creating a new Star
         tokenIdToStarInfo[_tokenId] = newStar; // Creating in memory the Star -> tokenId mapping
         _mint(msg.sender, _tokenId); // _mint assign the the star with _tokenId to the sender address (ownership)
+        
     }
 
     // Putting an Star for sale (Adding the star tokenid into the mapping starsForSale, first verify that the sender is the owner)
@@ -57,15 +58,20 @@ contract StarNotary is ERC721 {
 
     // Implement Task 1 lookUptokenIdToStarInfo
     //1. You should return the Star saved in tokenIdToStarInfo mapping
-    function lookUptokenIdToStarInfo (uint _tokenId) public view returns (string memory tokenInfo) {
+    function lookUptokenIdToStarInfo (uint _tokenId) public view returns (string memory name, string memory symbol) {
         //Solidity 0.8.0 and above can return our Star struct but to be pure to previous standard way of doing things we are returning it as a string
         name = tokenIdToStarInfo[_tokenId].name;
         symbol = tokenIdToStarInfo[_tokenId].symbol;
-        return ( tokenIdToStarInfo[_tokenId].name);
+        return (name,symbol);
     }
 
     // Implement Task 1 Exchange Stars function
     function exchangeStars(uint256 _tokenId1, uint256 _tokenId2) public {
+        address owner1 = ownerOf(_tokenId1);
+        address owner2 = ownerOf(_tokenId2);
+        require(owner1 == msg.sender || owner2 == msg.sender, "Sender has no relation to the required tokens");
+            _transferFrom(owner1, owner2, _tokenId1);
+            _transferFrom(owner2, owner1, _tokenId2);
         //1. Passing to star tokenId you will need to check if the owner of _tokenId1 or _tokenId2 is the sender
         //2. You don't have to check for the price of the token (star)
         //3. Get the owner of the two tokens (ownerOf(_tokenId1), ownerOf(_tokenId1)
@@ -74,8 +80,9 @@ contract StarNotary is ERC721 {
 
     // Implement Task 1 Transfer Stars
     function transferStar(address _to1, uint256 _tokenId) public {
+        require(msg.sender == ownerOf(_tokenId), "Sender has no relation to the transfered token");
+            _transferFrom(msg.sender, _to1, _tokenId);
         //1. Check if the sender is the ownerOf(_tokenId)
         //2. Use the transferFrom(from, to, tokenId); function to transfer the Star
     }
-
 }
